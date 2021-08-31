@@ -14,7 +14,7 @@ class CommonUtils
      * @return DateTime
      * @throws Exception
      */
-    public function formatDate(string $date) : DateTime
+    public static function formatDate(string $date) : DateTime
     {
         if (!$dt = DateTime::createFromFormat("d/m/Y", $date)) {
             throw new Exception("Invalid datetime format. Expected dd/mm/YYYY. Found $date");
@@ -29,19 +29,19 @@ class CommonUtils
      * @return type
      * @throws Exception
      */
-    public function daysInDiff(string $dateA, string $dateB) : int
+    public static function daysInDiff(string $dateA, string $dateB) : int
     {
         if ($dateA > $dateB) {
             throw new Exception("Invalid to date $dateB");
         }
-        $dateADT = $this->formatDate($dateA);
-        $dateBDT = $this->formatDate($dateB);
+        $dateADT = self::formatDate($dateA);
+        $dateBDT = self::formatDate($dateB);
         if ($dateADT->format("Y-m-d H:i:s") == $dateBDT->format("Y-m-d H:i:s")) {
             return 0;
         } elseif ($dateADT->format("Y-m-d H:i:s") > $dateBDT->format("Y-m-d H:i:s")) {
-            return $this->calculateDaysInDiff($dateBDT, $dateADT);
+            return self::calculateDaysInDiff($dateBDT, $dateADT);
         } else {
-            return $this->calculateDaysInDiff($dateADT, $dateBDT);
+            return self::calculateDaysInDiff($dateADT, $dateBDT);
         }
     }
 
@@ -52,7 +52,7 @@ class CommonUtils
      * @return int
      * @throws Exception
      */
-    private function calculateDaysInDiff(DateTime $dateTimeA, DateTime $dateTimeB) : int
+    private static function calculateDaysInDiff(DateTime $dateTimeA, DateTime $dateTimeB) : int
     {
         if ($dateTimeB > $dateTimeB) {
             throw new Exception("Invalid to date");
